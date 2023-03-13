@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title> JavaScript Calculator </title>
+
+  <link rel="stylesheet" href="/css/calculator.css">
+
+</head>
+
+<body>
+  
+  <div class="calculator">
+    <form name="form1">
+      <div class="header">
+      <!-- This input box shows the button pressed by the user in calculator. -->
+      <input id="calc" type="text" name="answer"></div>
+      <!-- Display the calculator button on the screen. -->
+      <!-- onclick() function display the number prsses by the user. -->
+      <div class="rawcontainer">
+        <div class="raw">
+          <div class="column">
+            <div class="content">
+              <div><h3 value="1" onclick="form1.answer.value += '1' ">1</h3></div>
+      <div><h3 value="2" onclick="form1.answer.value += '2' ">2</h3></div>
+      <div><h3 value="3" onclick="form1.answer.value += '3' ">3</h3></div>
+      <div><h3 value="+" onclick="form1.answer.value += '+' ">+</h3></div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="rawcontainer">
+        <div class="raw">
+          <div class="column">
+            <div class="content">
+              <div><h3 value="4" onclick="form1.answer.value += '4' ">4</h3></div>
+              <div><h3 value="5" onclick="form1.answer.value += '5' ">5</h3></div>
+              <div><h3 value="6" onclick="form1.answer.value += '6' ">6</h3></div>
+              <div><h3 value="-" onclick="form1.answer.value += '-' ">-</h3></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="rawcontainer">
+        <div class="raw">
+          <div class="column">
+            <div class="content">
+              <div><h3 value="7" onclick="form1.answer.value += '7' ">7</h3></div>
+              <div><h3 value="8" onclick="form1.answer.value += '8' ">8</h3></div>
+              <div><h3 value="9" onclick="form1.answer.value += '9' ">9</h3></div>
+              <div><h3 value="*" onclick="form1.answer.value += '*' ">*</h3></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="rawcontainer">
+        <div class="raw">
+          <div class="column">
+            <div class="content">
+ 
+              <div><h3 value="." onclick="form1.answer.value += '.' ">.</h3></div>
+              <div><h3 value="0" onclick="form1.answer.value += '0' ">0</h3></div>
+              <div><h3 value="/" onclick="form1.answer.value += '/' ">/</h3></div>
+              <!-- When we click on the '=' button, the onclick() shows the sum results on the calculator screen. -->
+              <div><h3 value="=" onclick="form1.answer.value = eval(form1.answer.value) ">=</h3></div>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+     
+
+  
+     
+      <!-- Display the Cancel button and erase all data entered by the user. -->
+      <h3 value="Clear All" onclick="form1.answer.value = ' ' " id="clear">AC</h3>
+
+
+    </form>
+  </div>
+</body>
+
+</html>
