@@ -41,18 +41,18 @@ var con3 = mysql.createConnection({
 con.connect((err) => {
     if (err) throw err;
     console.log('connected con')
-
 });
+
 con2.connect((err) => {
     if (err) throw err;
     console.log('connected con2')
-    
-}); 
+});
+
 con3.connect((err) => {
     if (err) throw err;
     console.log('connected con3')
-    
-}); 
+}); app.listen(8080);
+
 
 app.get("/", function (req, res) { //registration api
     const isToken = req.cookies.jwtToken;
@@ -134,7 +134,6 @@ app.post("/logindata", async function (req, res) { //login post api for user aut
 
 })
 
-
 app.get("/home", (req, res) => { //home page api
     const isToken = req.cookies.jwtToken;
     if (!isToken) {
@@ -170,7 +169,7 @@ app.get("/finduser2?", async (req, res) => {
     var result = await getdata(sql)
     console.log('password', result);
     if (result != "") {
-    console.log('password', result[0].password);
+        console.log('password', result[0].password);
         var match = await bcrypt.compare(pwd, result[0].password);
         console.log(match);
         if (match) {
@@ -178,7 +177,7 @@ app.get("/finduser2?", async (req, res) => {
         } else {
             res.json({ exists: true });
         }
-    }else{
+    } else {
         res.json({ exists: true });
     }
 })
@@ -198,31 +197,31 @@ async function getdata(sql) { //sql query function
 
 
 /////***********************************tic-tac-toe format****************************************
-app.get("/tictactoe", (req,res)=>{
+
+
+app.get("/tictactoe", (req, res) => {
     const isToken = req.cookies.jwtToken;
     if (isToken) {
         res.sendFile(path.join(__dirname, '/assets/html/tictactoe.html'));
-        
-    }else{
+
+    } else {
         return res.send(`you are not authorized register first <a href="/">sign up</a>`);
     }
-    })
-
+})
 
 /////***********************************kuku cube format****************************************
 
 
 
-app.get("/kukucube", (req,res)=>{
+app.get("/kukucube", (req, res) => {
     const isToken = req.cookies.jwtToken;
     if (isToken) {
         res.sendFile(path.join(__dirname, '/assets/html/kukucube.html'));
-        
-    }else{
+
+    } else {
         return res.send(`you are not authorized register first <a href="/">sign up</a>`);
     }
-    })
-
+})
 
 
 
@@ -231,7 +230,7 @@ app.get("/kukucube", (req,res)=>{
 
 
 
-app.get('/exel',async(req,res)=>{
+app.get('/exel', async (req, res) => { //for retrive all saved data
 
     const isToken = req.cookies.jwtToken;
     if (!isToken) {
@@ -240,107 +239,102 @@ app.get('/exel',async(req,res)=>{
 
     sql = `SELECT * FROM exel_format.exeltbl;`
     let data = await getdata(sql)
-    res.render('exel', {data});
-  })
-  
-  
-      app.get('/save',async(req,res)=>{
+    res.render('exel', { data });
+})
 
-        const isToken = req.cookies.jwtToken;
-        if (!isToken) {
-            return res.send(`you are not authorized register first <a href="/">sign up</a>`);
-        }
 
-          var add = req.query
-  
-          console.log(add);
-          var id = add.id;
-          var fname = add.fname;
-          var lname = add.lname;
-          var mail = add.mail;
-          var mobile = add.mobile;
-          
-  
-      sql = `update exel_format.exeltbl set fname='${fname}',lname='${lname}',mobile='${mobile}',mail='${mail}' where id = '${id}' ; `;
-          let data = await getdata(sql)
-      //    alert("record saved successfully...")
-        })
-         
-  
-  app.get('/add',async(req,res)=>{
+app.get('/save', async (req, res) => { //save user single inserted data
 
     const isToken = req.cookies.jwtToken;
     if (!isToken) {
         return res.send(`you are not authorized register first <a href="/">sign up</a>`);
     }
-      var add = req.query
-      console.log(add);
-     
-      var fname = add.fname;
-      var lname = add.lname;
-      var mail = add.mail;
-      var mobile = add.mobile;
-      sql = `insert into exel_format.exeltbl (fname,lname,mobile,mail) values ('${fname}','${lname}','${mobile}','${mail}'); `;
-      let data = await getdata(sql)
-      
-    })
-    app.get('/delete',async(req,res)=>{
 
-        const isToken = req.cookies.jwtToken;
-        if (!isToken) {
-            return res.send(`you are not authorized register first <a href="/">sign up</a>`);
+    var add = req.query
+
+    console.log(add);
+    var id = add.id;
+    var fname = add.fname;
+    var lname = add.lname;
+    var mail = add.mail;
+    var mobile = add.mobile;
+
+
+    sql = `update exel_format.exeltbl set fname='${fname}',lname='${lname}',mobile='${mobile}',mail='${mail}' where id = '${id}' ; `;
+    let data = await getdata(sql)
+    //    alert("record saved successfully...")
+})
+
+app.get('/add', async (req, res) => { //use for add new records
+
+    const isToken = req.cookies.jwtToken;
+    if (!isToken) {
+        return res.send(`you are not authorized register first <a href="/">sign up</a>`);
+    }
+    var add = req.query
+    console.log(add);
+
+    var fname = add.fname;
+    var lname = add.lname;
+    var mail = add.mail;
+    var mobile = add.mobile;
+    sql = `insert into exel_format.exeltbl (fname,lname,mobile,mail) values ('${fname}','${lname}','${mobile}','${mail}'); `;
+    let data = await getdata(sql)
+
+})
+
+app.get('/delete', async (req, res) => { // api for delete  single record
+
+    const isToken = req.cookies.jwtToken;
+    if (!isToken) {
+        return res.send(`you are not authorized register first <a href="/">sign up</a>`);
+    }
+    var dlt = req.query
+    console.log(dlt);
+    var id = dlt.id;
+
+    sql = `delete from exel_format.exeltbl where id = '${id}' ;`;
+    let data = await getdata(sql)
+
+})
+
+app.post('/saveall', async (req, res) => { // api for save & update records
+
+    const isToken = req.cookies.jwtToken;
+    if (!isToken) {
+        return res.send(`you are not authorized register first <a href="/">sign up</a>`);
+    }
+
+    var saveall = req.body
+
+    console.log(saveall);
+    var id = saveall.id;
+    console.log(id);
+    var fname = saveall.fname;
+    var lname = saveall.lname;
+    var mail = saveall.mail;
+    var mobile = saveall.mobile;
+
+    for (let i = 0; i < fname.length; i++) {
+        if (id[i] == undefined) {
+            sql = `insert into exel_format.exeltbl (fname,lname,mobile,mail) values ('${fname[i]}','${lname[i]}','${mobile[i]}','${mail[i]}'); `;
+            let data = await getdata(sql)
+
+        } else {
+            sql = `update exel_format.exeltbl set fname='${fname[i]}',lname='${lname[i]}',mobile='${mobile[i]}',mail='${mail[i]}' where id = '${id[i]}' ; `;
+            let data = await getdata(sql)
         }
-      var dlt = req.query
-      console.log(dlt);
-      var id = dlt.id;
-  
-      sql = `delete from exel_format.exeltbl where id = '${id}' ;`;
-      let data = await getdata(sql)
-      
+    }
+})
+
+async function getdata(sql) { // func. for run query
+    return new Promise((res, rej) => {
+        con2.query(sql, (err, data) => {
+            if (err) throw err;
+            res(data);
+        })
     })
-     
-    app.post('/saveall',async(req,res)=>{
-
-        const isToken = req.cookies.jwtToken;
-        if (!isToken) {
-            return res.send(`you are not authorized register first <a href="/">sign up</a>`);
-        }
-
-      var saveall = req.body
-  
-      console.log(saveall);
-      var id = saveall.id;
-      console.log(id);
-      var fname = saveall.fname;
-      var lname = saveall.lname;
-      var mail = saveall.mail;
-      var mobile = saveall.mobile;
-      
-      for (let i = 0; i < fname.length; i++) {
-          if(id[i] == undefined){
-              sql = `insert into exel_format.exeltbl (fname,lname,mobile,mail) values ('${fname[i]}','${lname[i]}','${mobile[i]}','${mail[i]}'); `;
-              let data = await getdata(sql)
-              
-          }else{
-              sql = `update exel_format.exeltbl set fname='${fname[i]}',lname='${lname[i]}',mobile='${mobile[i]}',mail='${mail[i]}' where id = '${id[i]}' ; `;
-              let data = await getdata(sql)
-          } 
-      }
-    })
-  
-  
-  async function getdata(sql) {
-      return new Promise((res, rej) => {
-          con2.query(sql, (err, data) => {
-              if (err) throw err;
-              res(data);
-          })
-      })
-  }
-  
-  app.listen(8080);
-
-
+}
 
 
 
@@ -348,7 +342,10 @@ app.get('/exel',async(req,res)=>{
 
 ////****************************************login registration api****************************************
 
-  app.get("/job_app_form", function (req, res) {//getting the select box data from database
+
+
+
+app.get("/job_app_form", function (req, res) {//getting the select box data from database
 
     const isToken = req.cookies.jwtToken;
     if (!isToken) {
@@ -556,7 +553,7 @@ app.get('/fetch', (req, res) => {//fetch the city according to state
     }
 
     const stateid = req.query.stateid;
-    console.log('hooo'+stateid);
+    console.log('hooo' + stateid);
     con.query(`SELECT state_id FROM job_application_db.states_tbl where state_name= '${stateid}';`, function (err, result1) {
         if (err) throw err;
         var id = result1[0].state_id
@@ -577,7 +574,7 @@ app.get("/edit", async (req, res) => {//select all user enter data from database
     var appid = req.query.id;
 
     //  console.log(appid)
-    
+
     sql1 = `select * from job_application_db.candidate_basic_info where c_id = '${appid}' ; `;
     let om = await getdata(sql1);
 
@@ -702,7 +699,7 @@ app.post("/update", async (req, res) => {//update the data and store in the data
     sql2 = `update  job_application_db.prefference_tbl set location='${update.location}',department='${update.department}',current_ctc='${update.curctc}',expected_ctc='${update.expectctc}' where id = '${prefid}' ;`
     let pref = await getdata(sql2);
     console.log(pref)
-    
+
     let read = req.body.read || "";
     let write = req.body.write || "";
     let speak = req.body.speak || "";
@@ -710,7 +707,7 @@ app.post("/update", async (req, res) => {//update the data and store in the data
     sql2 = `DELETE FROM job_application_db.languages_tbl WHERE c_id = '${appid}' ;`
     let dltlang = await getdata(sql2);
     console.log(dltlang)
-    
+
     var languages = '';
     if (typeof (req.body.languages) == 'object') {
         languages = `insert into job_application_db.languages_tbl(c_id, languages, lang_read, lang_write, lang_speak) values`;
@@ -730,18 +727,18 @@ app.post("/update", async (req, res) => {//update the data and store in the data
     console.log(dlttech)
 
     let technologies = req.body.technologies || "";
-    
+
     for (let i = 0; i < technologies.length; i++) {
         console.log(req.body[technologies[i]])
     }
 
     for (var i = 0; i < technologies.length; i++) {
         var sql = `INSERT INTO job_application_db.technologies_tbl (c_id,tech_name, tech_expertise)values ('${appid}','${technologies[i]}', '${req.body[technologies[i]]}');`
-           
+
         let tech1 = await getdata(sql);
     }
 
-    res.render('editview3') ;
+    res.render('editview3');
 })
 
 
@@ -760,7 +757,7 @@ app.get("/sorting", (req, res) => {
 
     var data = [];
 
-   let count;
+    let count;
     let page = req.query.num || 1;
     let curpage = parseInt(req.query.num);
     let limit = 25;
@@ -769,13 +766,13 @@ app.get("/sorting", (req, res) => {
     let cur_order = req.query.curorder; //column name for order by
     let odrtype = req.query.odrtype; // ascending or decending type
 
-    if (req.query.curorder){ 
+    if (req.query.curorder) {
         cur_order = req.query.curorder;
         odrtype = req.query.odrtype;
     }
-    else{ // first time loding the url
-        cur_order='id'
-        curpage =1;
+    else { // first time loding the url
+        cur_order = 'id'
+        curpage = 1;
         odrtype = 'ASC';
     }
 
@@ -783,19 +780,19 @@ app.get("/sorting", (req, res) => {
     if (isNaN(offset)) {
         offset = 0;
     }
-    
+
     con3.query(`select count(*) as numrows from student_express;`, function (err, res) {
         if (err) throw err;
         data[0] = res[0].numrows;
         console.log(data[0]);
-        count = Math.ceil(data[0]/limit);
-       
+        count = Math.ceil(data[0] / limit);
+
     });
     con3.query(`select * from student_express order by ${cur_order} ${odrtype} 
     limit ${offset},${limit} ; `, function (err, result1) {
         if (err) throw err;
         data[1] = result1;
-        res.render('sorting', {data:data, count:count,curpage,cur_order,odrtype});
+        res.render('sorting', { data: data, count: count, curpage, cur_order, odrtype });
         console.log("record showed successfully");
 
     });
@@ -807,14 +804,13 @@ app.get("/sorting", (req, res) => {
 /////***********************************Searching format****************************************
 
 
-app.get("/searching", function (req, res) {
+app.get("/searching", function (req, res) {// use for  select option value from database i.e. courses
     const isToken = req.cookies.jwtToken;
     if (!isToken) {
         return res.send(`you are not authorized register first <a href="/">sign up</a>`);
     }
 
     let states = [];
-    
     let status = [];
     let courses = [];
     let locations = [];
@@ -856,7 +852,7 @@ app.get("/searching", function (req, res) {
     });
 })
 
-app.post("/", (req, res) => {
+app.post("/", (req, res) => {// api for show the form to the user
 
     const isToken = req.cookies.jwtToken;
     if (!isToken) {
@@ -877,7 +873,7 @@ app.post("/", (req, res) => {
     let relationlist = req.body.relationlist;
     let dob = req.body.dob;
     let designation = req.body.designation;
- 
+
 
     con.query(`INSERT INTO job_application_db.candidate_basic_info (fname, lname, address, city,zipcode, state, contact, email, gender, relationship_status, dob, disignation, createtime)values ('${fname}', '${lname}', '${address}', '${city}', '${pincode}', '${state}', '${num}', '${email}', '${gender}', '${relationlist}', '${dob}', '${designation}',now());`, function (err, result) {
         if (err) throw err;
@@ -887,7 +883,7 @@ app.post("/", (req, res) => {
 
         // ****** tech Details
 
-        let technologies = req.body.technologies|| "";
+        let technologies = req.body.technologies || "";
         // console.log(technologies)
         for (let i = 0; i < technologies.length; i++) {
             console.log(req.body[technologies[i]])
@@ -920,8 +916,8 @@ app.post("/", (req, res) => {
         con.query(languages, function (err, result6) {
             if (err) throw err;
             // console.log(languages)
-          
-         
+
+
         });
         // ****** experience Details
 
@@ -1000,13 +996,13 @@ app.post("/", (req, res) => {
     });
 });
 
-app.get("/search", (req, res) => {
+app.get("/search", (req, res) => {// api for search the data  using delimeters
 
     const isToken = req.cookies.jwtToken;
     if (!isToken) {
         return res.send(`you are not authorized register first <a href="/">sign up</a>`);
     }
-  var search = req.query.text
+    var search = req.query.text
     var multi = req.query.multi
     // console.log("multi :- " + multi)
     var arr = [], arr2 = [], arr3 = []
@@ -1014,7 +1010,7 @@ app.get("/search", (req, res) => {
 
     for (var i = 0; i < search.length; i++) {
         if (search[i] == '*' || search[i] == '^' || search[i] == '@' || search[i] == '#' ||
-            search[i] == '$' || search[i] == '~' || search[i] == '!' || search[i] == '_' || 
+            search[i] == '$' || search[i] == '~' || search[i] == '!' || search[i] == '_' ||
             search[i] == '?' || search[i] == '+' || search[i] == '%' || search[i] == '-') {
             arr.push(i) //pushing the index of delimeters
             arr3.push(search[i])//pushing the delimeters
@@ -1146,7 +1142,8 @@ app.get("/search", (req, res) => {
         res.render('registrationformsearch1', { data: result3, multi })
     })
 })
-app.get('/fetch',(req,res)=>{
+
+app.get('/fetch', (req, res) => {// use for fetch cities according to the change the cities
     const isToken = req.cookies.jwtToken;
     if (!isToken) {
         return res.send(`you are not authorized register first <a href="/">sign up</a>`);
@@ -1158,30 +1155,32 @@ app.get('/fetch',(req,res)=>{
         res.send(result);
     });
 })
-app.get('/delete',(req,res)=>{
+
+app.get('/delete', (req, res) => { // use for delete records
 
     const isToken = req.cookies.jwtToken;
     if (!isToken) {
         return res.send(`you are not authorized register first <a href="/">sign up</a>`);
     }
-    var id  = req.query.deleteid;
+    var id = req.query.deleteid;
     console.log(id);
     con.query(`UPDATE candidate_basic_info SET raw = '1' WHERE c_id ='${id}';`, function (err, result) {
         if (err) throw err;
         res.send(result);
     });
 })
-app.post('/deleteall',(req,res)=>{
+
+app.post('/deleteall', (req, res) => {// use for multiple delete
 
     const isToken = req.cookies.jwtToken;
     if (!isToken) {
         return res.send(`you are not authorized register first <a href="/">sign up</a>`);
     }
     console.log(req.body)
-    var id  = req.query.d_id;
+    var id = req.query.d_id;
     console.log(id);
     con.query(`UPDATE candidate_basic_info SET raw = '1' WHERE c_id in (${id});`, function (err, result) {
         if (err) throw err;
-       
-    }); res.json({ans: "delete successfully"});
+
+    }); res.json({ ans: "delete successfully" });
 })
