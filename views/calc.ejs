@@ -10,7 +10,7 @@
 
 <body>
 
-  <table border="2">
+  <table cellpadding="0" cellspacing="0" border="0">
     <form name="form1">
 
       <tr>
@@ -19,65 +19,65 @@
 
 
       <tr>
-        <td>
-          <h3 value="1" onclick="form1.answer.value += '1' ">1</h3>
+        <td class="grey" onclick="form1.answer.value += '1' ">
+          <h2 value="1" >1</h2>
         </td>
-        <td>
-          <h3 value="2" onclick="form1.answer.value += '2' ">2</h3>
+        <td class="grey" onclick="form1.answer.value += '2' ">
+          <h2 value="2" >2</h2>
         </td>
-        <td>
-          <h3 value="3" onclick="form1.answer.value += '3' ">3</h3>
+        <td class="grey" onclick="form1.answer.value += '3' ">
+          <h2 value="3" >3</h2>
         </td>
-        <td>
-          <h3 value="+" onclick="form1.answer.value += '+' ">+</h3>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <h3 value="4" onclick="form1.answer.value += '4' ">4</h3>
-        </td>
-        <td>
-          <h3 value="5" onclick="form1.answer.value += '5' ">5</h3>
-        </td>
-        <td>
-          <h3 value="6" onclick="form1.answer.value += '6' ">6</h3>
-        </td>
-        <td>
-          <h3 value="-" onclick="form1.answer.value += '-' ">-</h3>
+        <td onclick="form1.answer.value += '+' ">
+          <h2 value="+" >+</h2>
         </td>
       </tr>
       <tr>
-        <td>
-          <h3 value="7" onclick="form1.answer.value += '7' ">7</h3>
+        <td class="grey" onclick="form1.answer.value += '4' ">
+          <h2 value="4" >4</h2>
         </td>
-        <td>
-          <h3 value="8" onclick="form1.answer.value += '8' ">8</h3>
+        <td class="grey" onclick="form1.answer.value += '5' ">
+          <h2 value="5" >5</h2>
         </td>
-        <td>
-          <h3 value="9" onclick="form1.answer.value += '9' ">9</h3>
+        <td class="grey" onclick="form1.answer.value += '6' ">
+          <h2 value="6" >6</h2>
         </td>
-        <td>
-          <h3 value="*" onclick="form1.answer.value += '*' ">*</h3>
+        <td  onclick="form1.answer.value += '-' ">
+          <h2 value="-">-</h2>
         </td>
       </tr>
       <tr>
-        <td>
-          <h3 value="." onclick="form1.answer.value += '.' ">.</h3>
+        <td class="grey" onclick="form1.answer.value += '7' ">
+          <h2 value="7" >7</h2>
         </td>
-        <td>
-          <h3 value="0" onclick="form1.answer.value += '0' ">0</h3>
+        <td  class="grey" onclick="form1.answer.value += '8' ">
+          <h2 value="8" >8</h2>
         </td>
-        <td>
-          <h3 value="/" onclick="form1.answer.value += '/' ">/</h3>
+        <td  class="grey" onclick="form1.answer.value += '9' ">
+          <h2 value="9" >9</h2>
         </td>
-        <td>
-          <h3 value="=" onclick="form1.answer.value = eval(form1.answer.value) ">=</h3>
+        <td onclick="form1.answer.value += '*' ">
+          <h2 value="*" >*</h2>
+        </td>
+      </tr>
+      <tr>
+        <td  class="grey" onclick="form1.answer.value += '.' ">
+          <h2 value="." >.</h2>
+        </td>
+        <td  class="grey" onclick="form1.answer.value += '0' ">
+          <h2 value="0" >0</h2>
+        </td>
+        <td  class="grey" onclick="form1.answer.value += '/' ">
+          <h2 value="/" >/</h2>
+        </td>
+        <td rowspan="2"  class="gradient" onclick="form1.answer.value = eval(form1.answer.value) ">
+          <h2  value="=" >=</h2>
         </td>
       </tr>
 
       <tr>
-        <td colspan="4">
-          <h3 value="Clear All" onclick="form1.answer.value = ' ' " id="clear">AC</h3>
+        <td colspan="3" class="grey border" onclick="form1.answer.value = ' ' " id="clear">
+          <h2 value="Clear All" >AC</h2>
         </td>
       </tr>
 

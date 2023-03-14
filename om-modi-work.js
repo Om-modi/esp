@@ -1,7 +1,7 @@
 
 ////****************************************login registration api****************************************
 
-
+const ejs = require('ejs');
 const body = require('body-parser');
 var express = require('express');
 var app = express();
@@ -799,7 +799,17 @@ app.get("/sorting", (req, res) => {
 
 });
 
+/////***********************************calc format****************************************
 
+
+
+app.get('/calc', (req, res) => {
+    const isToken = req.cookies.jwtToken;
+    if (!isToken) {
+        return res.send(`you are not authorized register first <a href="/">sign up</a>`);
+    }
+  res.render('calc')
+})
 
 /////***********************************Searching format****************************************
 
